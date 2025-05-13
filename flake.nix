@@ -45,6 +45,8 @@
             dpkg
             fakeroot
             libglibutil
+            libGL
+            libGLU
 
             # these are important for running application built with electron forge package
             glib
@@ -69,6 +71,7 @@
             libxkbcommon
             alsa-lib
           ];
+
           nativeBuildInputs =
             with pkgs; [ unzip ]
             ++ buildInputs
@@ -78,7 +81,7 @@
               copyDesktopItems
               # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
               # Has to use `makeShellWrapper` from `buildPackages` even though `makeShellWrapper` from the inputs is spliced because `propagatedBuildInputs` would pick the wrong one because of a different offset.
-              (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
+              # (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
             ];
 
         LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
@@ -86,12 +89,13 @@
         ELECTRON_SKIP_BINARY_DOWNLOAD="1";
 
         installPhase = ''
-            addAutoPatchelfSearchPath ${pkgs.electron}/libexec/electron
+            addAutoPatchelfSearchPath ${electron}/libexec/electron
             mkdir -p $out/bin
             ls -la
             cp -r ./* $out/bin/
             chmod +x $out/bin/euthymia-electron
             cp $out/bin/euthymia-electron $out/bin/euthymia-desktop
+            # patchelf --set-rpath $LD_LIBRARY_PATH:${electron}/libexec/electron $out/bin/euthymia-desktop
           '';
         };
       });
