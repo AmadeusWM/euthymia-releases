@@ -20,7 +20,9 @@
           ];
         };
       });
-      packages = forEachSupportedSystem ({ pkgs }: rec {
+      packages = forEachSupportedSystem ({ pkgs }: let
+        electron = pkgs.electron_36;
+        in rec {
         default = euthymia-electron;
         euthymia-electron = pkgs.stdenv.mkDerivation rec {
           pname = "euthymia-electron";
@@ -28,7 +30,7 @@
 
           src = pkgs.fetchzip {
             url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/main/euthymia-electron-linux-x64.zip";
-            sha256 = "sha256-YrsVrMhL8rQRIlekMabzpO6UgzNK2+Zi/0whjKFYOkM="; # Replace with actual hash
+            sha256 = "sha256-cTv5JxupIS/Kz2uH9tqwFHDoKoRRTj39AqZmTnz9y2Y="; # Replace with actual hash
           };
 
           buildInputs = with pkgs; [
@@ -78,6 +80,11 @@
               # Has to use `makeShellWrapper` from `buildPackages` even though `makeShellWrapper` from the inputs is spliced because `propagatedBuildInputs` would pick the wrong one because of a different offset.
               (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
             ];
+
+        LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
+        ELECTRON_OVERRIDE_DIST_PATH="${electron}/bin/";
+        ELECTRON_SKIP_BINARY_DOWNLOAD="1";
+
         installPhase = ''
             addAutoPatchelfSearchPath ${pkgs.electron}/libexec/electron
             mkdir -p $out/bin
