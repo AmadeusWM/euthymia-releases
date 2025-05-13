@@ -76,9 +76,10 @@
             with pkgs; [ unzip ]
             ++ buildInputs
             ++ lib.optionals stdenv.hostPlatform.isLinux [
-              autoPatchelfHook
-              asar
-              copyDesktopItems
+              makeWrapper
+              # autoPatchelfHook
+              # asar
+              # copyDesktopItems
               # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
               # Has to use `makeShellWrapper` from `buildPackages` even though `makeShellWrapper` from the inputs is spliced because `propagatedBuildInputs` would pick the wrong one because of a different offset.
               # (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
@@ -89,13 +90,15 @@
         ELECTRON_SKIP_BINARY_DOWNLOAD="1";
 
         installPhase = ''
-            addAutoPatchelfSearchPath ${electron}/libexec/electron
+            runHook preInstall
             mkdir -p $out/bin
             ls -la
-            cp -r ./* $out/bin/
-            chmod +x $out/bin/euthymia-electron
-            cp $out/bin/euthymia-electron $out/bin/euthymia-desktop
-            # patchelf --set-rpath $LD_LIBRARY_PATH:${electron}/libexec/electron $out/bin/euthymia-desktop
+            makeWrapper ${electron}/bin/electron $out/bin/euthymia-desktop \
+                --add-flags $out/share/euthymia/app.asar
+
+            install -m 444 -D resources/app.asar $out/share/euthymia/app.asar
+
+            runHook postInstall
           '';
         };
       });
