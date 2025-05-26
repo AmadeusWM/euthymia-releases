@@ -15,7 +15,7 @@ in pkgs.stdenv.mkDerivation rec {
     desktopName = "Euthymia";
     comment = "Knowledge base";
     icon = "euthymia";
-    exec = "euthymia";
+    exec = "euthymia-electron";
     categories = [ "Office" ];
     mimeTypes = [ "x-scheme-handler/euthymia" ];
   };
