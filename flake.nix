@@ -93,7 +93,7 @@
             runHook preInstall
             mkdir -p $out/bin
             ls -la
-            makeWrapper ${electron}/bin/electron $out/bin/euthymia-desktop \
+            makeWrapper ${electron}/bin/electron $out/bin/euthymia-electron \
                 --add-flags $out/share/euthymia/app.asar
 
             install -m 444 -D resources/app.asar $out/share/euthymia/app.asar
