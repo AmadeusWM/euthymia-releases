@@ -7,8 +7,15 @@ in pkgs.stdenv.mkDerivation rec {
 
   src = pkgs.fetchzip {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/main/euthymia-electron-linux-x64.zip";
-    sha256 = "sha256-SKtwEX5/vMwGrBlPfK/uGNtfhpGl8OiQMdBYubpEteo=";
+    sha256 = "sha256-vCM9VXfZILFTXbBtahG+GxEOUU+m5Dlf5Kg0T87T+Dw=";
   };
+
+  # version = "v0.1.3";
+
+  # src = pkgs.fetchzip {
+  #   url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/${version}/euthymia-electron-linux-x64.zip";
+  #   sha256 = "sha256-cTv5JxupIS/Kz2uH9tqwFHDoKoRRTj39AqZmTnz9y2Y=";
+  # };
 
   desktopItem = makeDesktopItem {
     name = "euthymia";
@@ -19,13 +26,6 @@ in pkgs.stdenv.mkDerivation rec {
     categories = [ "Office" ];
     mimeTypes = [ "x-scheme-handler/euthymia" ];
   };
-
-  # version = "v0.1.3";
-
-  # src = pkgs.fetchzip {
-  #   url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/${version}/euthymia-electron-linux-x64.zip";
-  #   sha256 = "sha256-cTv5JxupIS/Kz2uH9tqwFHDoKoRRTj39AqZmTnz9y2Y="; # Replace with actual hash
-  # };
 
   buildInputs = pkgs.lib.optionals true ([
     # NODE
@@ -84,8 +84,8 @@ in pkgs.stdenv.mkDerivation rec {
     mkdir -p $out/bin
     ls -la
     makeWrapper ${electron}/bin/electron $out/bin/euthymia-electron \
-        --add-flags $out/share/euthymia/app.asar \
-        --add-flags ${lib.escapeShellArg commandLineArgs}
+      --add-flags $out/share/euthymia/app.asar \
+      --add-flags ${lib.escapeShellArg commandLineArgs}
 
     install -m 444 -D resources/app.asar $out/share/euthymia/app.asar
     install -m 444 -D "${desktopItem}/share/applications/"* \
