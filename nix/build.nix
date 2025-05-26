@@ -1,4 +1,4 @@
-{ pkgs, lib, commandLineArgs ? "", ... }:
+{ pkgs, lib, makeDesktopItem, commandLineArgs ? "", ... }:
 let
   electron = pkgs.electron_36;
 in pkgs.stdenv.mkDerivation rec {
@@ -8,6 +8,16 @@ in pkgs.stdenv.mkDerivation rec {
   src = pkgs.fetchzip {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/main/euthymia-electron-linux-x64.zip";
     sha256 = "sha256-SKtwEX5/vMwGrBlPfK/uGNtfhpGl8OiQMdBYubpEteo=";
+  };
+
+  desktopItem = makeDesktopItem {
+    name = "euthymia";
+    desktopName = "Euthymia";
+    comment = "Knowledge base";
+    icon = "euthymia";
+    exec = "euthymia";
+    categories = [ "Office" ];
+    mimeTypes = [ "x-scheme-handler/euthymia" ];
   };
 
   # version = "v0.1.3";
@@ -78,6 +88,8 @@ in pkgs.stdenv.mkDerivation rec {
         --add-flags ${lib.escapeShellArg commandLineArgs}
 
     install -m 444 -D resources/app.asar $out/share/euthymia/app.asar
+    install -m 444 -D "${desktopItem}/share/applications/"* \
+           -t $out/share/applications/
 
     runHook postInstall
   '';
