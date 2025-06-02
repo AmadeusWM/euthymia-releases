@@ -7,7 +7,7 @@ in pkgs.stdenv.mkDerivation rec {
 
   src = pkgs.fetchzip {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/main/euthymia-electron-linux-x64.zip";
-    sha256 ="sha256-FtbasWknY1wqYbsugTc3HMv4/0X1sCoekw+qHvvGFyY=";
+    sha256 ="sha256-sPZ8T+W9M/xfS/LjmtB7wLtPRuLBNK9EAzwbTjYGies=";
   };
 
   # version = "v0.1.3";
@@ -29,41 +29,9 @@ in pkgs.stdenv.mkDerivation rec {
 
   buildInputs = pkgs.lib.optionals true ([
     # NODE
-    pkgs.node2nix
-    pkgs.nodejs
-    pkgs.pnpm
-    pkgs.yarn
+    
     electron
-    # Electron build
-    pkgs.rpm
-    pkgs.dpkg
-    pkgs.fakeroot
-    pkgs.libglibutil
-    pkgs.libGL
-    pkgs.libGLU
-
-    # these are important for running application built with electron forge package
-    pkgs.glib
-    pkgs.nss
-    pkgs.nspr
-    pkgs.dbus
-    pkgs.atk
-    pkgs.cups
-    pkgs.libdrm
-    pkgs.gtk3
-    pkgs.pango
-    pkgs.cairo
-    pkgs.xorg.libX11
-    pkgs.xorg.libXcomposite
-    pkgs.xorg.libXdamage
-    pkgs.xorg.libXext
-    pkgs.xorg.libXfixes
-    pkgs.xorg.libXrandr
-    pkgs.mesa
-    pkgs.expat
-    pkgs.xorg.libxcb
-    pkgs.libxkbcommon
-    pkgs.alsa-lib
+    
   ]);
 
   nativeBuildInputs =
