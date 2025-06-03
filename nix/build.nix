@@ -7,7 +7,7 @@ in pkgs.stdenv.mkDerivation rec {
 
   src = pkgs.fetchzip {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/main/euthymia-electron-linux-x64.zip";
-    sha256 ="sha256-sPZ8T+W9M/xfS/LjmtB7wLtPRuLBNK9EAzwbTjYGies=";
+    sha256 ="sha256-c37he9AFiX5m8wcK81nc0kZ7lffD694NPdr2IsG4d1g=";
   };
 
   # version = "v0.1.3";
