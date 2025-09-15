@@ -28,73 +28,19 @@ pkgs.stdenv.mkDerivation {
   ];
 
   buildInputs = with pkgs; [
-    # Base system
-    stdenv.cc.cc.lib
-    glibc
-    
-    # Graphics libraries for EGL/OpenGL support
-    libGL
-    libGLU
-    mesa
-    libgbm
-    
-    # Additional graphics and windowing libraries
-    libdrm
-    libxkbcommon
-    wayland
-    
-    # X11 libraries
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libxcb
-    
-    # GTK and related libraries
-    gtk3
-    glib
+    # tauri stuff 
+    at-spi2-atk
+    atkmm
     cairo
-    pango
-    atk
     gdk-pixbuf
-    
-    # Text rendering libraries
-    fribidi
+    glib
+    gtk3
     harfbuzz
-    
-    # Audio libraries
-    alsa-lib
-    pulseaudio
-    
-    # System libraries
-    fontconfig
-    freetype
-    dbus
-    systemd
-    zlib
-    openssl
-    curl
-    expat
-    libxml2
-    libxslt
-    sqlite
-    libgpg-error
-    libgcrypt
-    e2fsprogs  # for libcom_err
-    gmp        # for libgmp
-    
-    # WebKit for Tauri webview
+    librsvg
+    libsoup_3
+    pango
     webkitgtk_4_1
-    
-    # Vulkan support
-    vulkan-loader
-    vulkan-validation-layers
+    openssl
   ];
 
   unpackPhase = ''
