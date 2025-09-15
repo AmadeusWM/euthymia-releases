@@ -21,7 +21,7 @@
         };
       });
         packages = forEachSupportedSystem ({ pkgs, ... }: {
-            default = pkgs.callPackage ./nix/build.nix { inherit (pkgs.stdenv) system; };
+            default = pkgs.callPackage ./nix/build-tauri.nix { inherit (pkgs.stdenv) system; };
         });
     };
 }
