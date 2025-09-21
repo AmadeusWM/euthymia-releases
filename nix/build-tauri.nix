@@ -2,10 +2,10 @@
 
 let
   pname = "euthymia";
-  version = "0.1.7";
+  version = "0.1.9";
   src = pkgs.fetchurl {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/v${version}/Euthymia_${version}_amd64.deb";
-    sha256 = "0x4kwwb38c10pzjiirp1ahrx7xqqigvaqvwmw8sixdd6hhpvagjv";
+    sha256 = "sha256-cqQuGLKFvzV/km+qBHipm+gfnXw/OyllU5oiF37x4I0=";
   };
   
   desktopItem = makeDesktopItem {
