@@ -20,9 +20,10 @@
           ];
         };
       });
-        packages = forEachSupportedSystem ({ pkgs, ... }: {
-            default = pkgs.callPackage ./nix/build-tauri.nix { inherit (pkgs.stdenv) system; };
-            electron = pkgs.callPackage ./nix/build-electron.nix { inherit (pkgs.stdenv) system; };
-        });
+      packages = forEachSupportedSystem ({ pkgs, ... }: rec { 
+        default = electron;
+        tauri = pkgs.callPackage ./nix/build-tauri.nix { inherit (pkgs.stdenv) system; };
+        electron = pkgs.callPackage ./nix/build-electron.nix { inherit (pkgs.stdenv) system; };
+      });
     };
 }

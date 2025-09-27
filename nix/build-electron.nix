@@ -3,11 +3,11 @@ let
   electron = pkgs.electron_36;
 in pkgs.stdenv.mkDerivation rec {
   pname = "euthymia-electron";
-  version = "0.1.10";
+  version = "0.1.11";
 
   src = pkgs.fetchurl {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/v${version}/euthymia-electron-linux-x64-${version}.zip";
-    sha256 = "sha256-yCvVK9cVM9zYIr8wke33a5PDstSMGnK4e6usqxvw2wg=";
+    sha256 = "sha256-1WyyyxkHImWqXzwbJ/3MBaWHAqViTb9CVugrnpJwYn0=";
   };
 
   desktopItem = makeDesktopItem {
