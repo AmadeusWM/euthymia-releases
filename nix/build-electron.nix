@@ -1,13 +1,14 @@
 { pkgs, lib, makeDesktopItem, commandLineArgs ? "", ... }:
 let
   electron = pkgs.electron_36;
+  release = import ./release.nix { inherit lib; };
 in pkgs.stdenv.mkDerivation rec {
   pname = "euthymia-electron";
-  version = "0.1.11";
+  version = release.version;
 
   src = pkgs.fetchurl {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/v${version}/euthymia-electron-linux-x64-${version}.zip";
-    sha256 = "sha256-1ZMj/N7b9uaTrRZuxBuCwx/qB+nG4BrAtr99SKgsub8=";
+    sha256 = release.sha256;
   };
 
   desktopItem = makeDesktopItem {
