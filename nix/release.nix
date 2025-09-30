@@ -2,5 +2,5 @@
 
 {
 	version = "0.1.11";
-	sha256 = "sha256-MYVDGRcRxdsEd1XNzvDMPPSm0XUj/kgwUFhsebO8quw=";
+	electron_sha256 = "sha256-xxLWaPMPVpPkRlQIzycqkjigfnLaJ/HdzSYsGxF96/I=";
 }
