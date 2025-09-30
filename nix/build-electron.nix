@@ -8,7 +8,7 @@ in pkgs.stdenv.mkDerivation rec {
 
   src = pkgs.fetchurl {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/v${version}/euthymia-electron-linux-x64-${version}.zip";
-    sha256 = release.sha256;
+    sha256 = release.electron_sha256;
   };
 
   desktopItem = makeDesktopItem {
