@@ -1,11 +1,12 @@
 { pkgs, lib, makeDesktopItem, commandLineArgs ? "", ... }:
 
 let
+  release = import ./release.nix { inherit lib; };
   pname = "euthymia";
-  version = "0.1.11";
+  version = release.version;
   src = pkgs.fetchurl {
     url = "https://github.com/AmadeusWM/euthymia-releases/releases/download/v${version}/Euthymia_${version}_amd64.deb";
-    sha256 = "sha256-eZ9MC7YpeLhkSBQMXzrjPTg22WHGBzFQHMmpxTBVJcQ=";
+    sha256 = release.tauri_sha256;
   };
   
   desktopItem = makeDesktopItem {
